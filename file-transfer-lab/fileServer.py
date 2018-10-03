@@ -50,9 +50,9 @@ while True:
             framedSend(sock, b"SUCCESS", debug)
             f = open('server-files/' + fileName, "wb")
             line = framedReceive(sock, debug)
-            while(line):
+            while(line.decode() != "done"):
+                print("Server line: " + line.decode())
                 f.write(line)
-                #line = sock.recv(1024)
                 line = framedReceive(sock, debug)
             f.close()
             framedSend(sock, payload, debug)
