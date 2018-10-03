@@ -66,10 +66,12 @@ if s is None:
 
 print("sending FILE NAME")
 framedSend(s, fileName.encode(), debug)
+print("received:", framedReceive(s, debug))
 f = open(fileName, 'rb')
 line = f.read(100)
 while(line):
     #s.send(line)
+    print(line)
     framedSend(s, line, debug)
-    line = f.read(1024)
+    line = f.read(100)
 print("received:", framedReceive(s, debug))
