@@ -47,11 +47,12 @@ while True:
                 print("File already exists on server")
                 framedSend(sock, b"Error: File already exists on server", debug)
                 sys.exit()
-            f = open('server-files/' + fileName, "w")
-            line = sock.recv(1024)
+            f = open('server-files/' + fileName, "wb")
+            line = framedReceive(sock, debug)
             while(line):
                 f.write(line)
-                line = sock.recv(1024)
+                #line = sock.recv(1024)
+                line = framedReceive(sock, debug)
             f.close()
             framedSend(sock, payload, debug)
             

@@ -67,8 +67,9 @@ if s is None:
 print("sending FILE NAME")
 framedSend(s, fileName.encode(), debug)
 f = open(fileName, 'rb')
-line = f.read(1024)
+line = f.read(100)
 while(line):
-    s.send(line)
+    #s.send(line)
+    framedSend(s, line, debug)
     line = f.read(1024)
 print("received:", framedReceive(s, debug))
