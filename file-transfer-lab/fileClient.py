@@ -66,13 +66,14 @@ if s is None:
 
 print("sending FILE NAME")
 framedSend(s, fileName.encode(), debug)
-print("received:", framedReceive(s, debug))
-f = open(fileName, 'rb')
-line = f.read(100)
-while(line):
-    #s.send(line)
-    print("Client line: " + line.decode())
-    framedSend(s, line, debug)
+#print("received:", framedReceive(s, debug))
+if(framedReceive(s, debug).decode() == "SUCCESS"):
+    f = open(fileName, 'rb')
     line = f.read(100)
-framedSend(s, b"done", debug)
-print("received:", framedReceive(s, debug))
+    while(line):
+        #s.send(line)
+        print("Client line: " + line.decode())
+        framedSend(s, line, debug)
+        line = f.read(100)
+    framedSend(s, b"done", debug)
+    print("received:", framedReceive(s, debug))
